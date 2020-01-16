@@ -30,7 +30,7 @@ function App() {
 
       <div className="flex justify-center flex-wrap p-10">
         <div className="flex-initial w-48 rounded overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
-          <img className="w-auto mx-auto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" />
+          <img className="w-auto mx-auto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="Ditto" />
           <div className="px-4 py-2 pb-0">
             <div className="font-bold text-sm mb-2 text-center">Ditto</div>
           </div>
