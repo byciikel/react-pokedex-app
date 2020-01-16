@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import Store from './Store'
+import InfiniteScroll from "react-infinite-scroll-component"
 
 import '@/css/tailwind.css'
 import '@/css/style.css'
 
-class App extends Component {
-  componentDidMount = () => {
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=10')
-  }
-
+class PokemonCard extends Component {
   render() {
     return (
       <div>
@@ -52,4 +49,32 @@ class App extends Component {
   }
 }
 
-export default observer(App)
+class Body extends Component {
+  componentDidMount = () => {
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=10')
+  }
+
+  fetchMorePokemon = () => {
+    Store.fetchAllPokemon(Store.urlNextGet)
+  }
+
+  render() {
+    return (
+      <InfiniteScroll
+        dataLength={Store.dataAllPokemon.length}
+        next={this.fetchMorePokemon}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <PokemonCard/>
+      </InfiniteScroll>
+    )
+  }
+}
+
+export default observer(Body)
