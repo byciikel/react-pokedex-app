@@ -8,12 +8,22 @@ import '@/css/style.css'
 
 class PokemonCard extends Component {
   state = {
-    pokemonType: ['normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy']
+    pokemonType: ['all', 'normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy']
+  }
+
+  componentDidMount = () => {
+    this.setState({ tagCLick: 'all' })
   }
 
   activatedTag = (e) => {
     let stringType = e.target.innerHTML.replace('#', '')
     this.setState({ tagCLick: stringType })
+    Store.fetchFunction(`https://pokeapi.co/api/v2/type/${stringType}`).then(
+      async filtered => {
+        await Store.setFilterPokemon(filtered.pokemon)
+        console.log(Store.dataFilterPokemon)
+      }
+    )
   }
 
   render() {
