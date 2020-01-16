@@ -14,7 +14,7 @@ class Store {
           let pokemon = await this.fetchPokemonByUrl(AllPokemon[i].url)
           resultAllPokemon.push(pokemon)
         }
-        // console.log(resultAllPokemon)
+        console.log(resultAllPokemon)
         this.setNextGet(result.next)
         this.setDataAllPokemon(resultAllPokemon)
       },

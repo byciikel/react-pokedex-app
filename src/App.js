@@ -65,16 +65,16 @@ class Body extends Component {
         next={this.fetchMorePokemon}
         hasMore={true}
         loader={
-          <div class="bg-none text-center py-4 lg:px-4">
-            <div class="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
-              <span class="flex uppercase px-2 py-1 text-xs font-bold">load pokemon ...</span>
+          <div className="bg-none text-center py-4 lg:px-4">
+            <div className="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
+              <span className="flex uppercase px-2 py-1 text-xs font-bold">load pokemon ...</span>
             </div>
           </div>
         }
         endMessage={
-          <div class="bg-none text-center py-4 lg:px-4">
-            <div class="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
-              <span class="flex capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
+          <div className="bg-none text-center py-4 lg:px-4">
+            <div className="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
+              <span className="flex capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
             </div>
           </div>
         }
