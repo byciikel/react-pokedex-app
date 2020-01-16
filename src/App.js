@@ -31,7 +31,7 @@ class App extends Component {
 
         <div className="flex justify-center flex-wrap p-10">
           {Store.dataAllPokemon ? 
-            Store.dataAllPokemon.results.map((pokemon, index) => (
+            Store.dataAllPokemon.map((pokemon, index) => (
               <div key={index} className="flex-initial w-48 rounded overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
                 <img className="w-auto mx-auto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="Ditto" />
                 <div className="px-4 py-2 pb-0">
