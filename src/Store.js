@@ -1,8 +1,8 @@
 import { decorate, observable } from 'mobx'
 
 class Store {
-  fetchAllPokemon() {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=100`, {
+  fetchAllPokemon(url) {
+    fetch(url, {
       method: 'GET'
     }).then(
       res => res.json()
@@ -15,6 +15,7 @@ class Store {
           resultAllPokemon.push(pokemon)
         }
         console.log(resultAllPokemon)
+        this.setNextGet(result.next)
         this.setDataAllPokemon(resultAllPokemon)
       },
       (error) => {
@@ -25,6 +26,10 @@ class Store {
 
   setDataAllPokemon(datas) {
     this.dataAllPokemon = datas
+  }
+
+  setNextGet(url) {
+    this.urlNextGet = url
   }
 
   fetchPokemonByUrl(url) {
@@ -45,7 +50,8 @@ class Store {
 
 decorate(Store, {
   fetchAllPokemon: observable,
-  dataAllPokemon: observable
+  dataAllPokemon: observable,
+  urlNextGet: observable,
 })
 
 const NewStore = new Store()

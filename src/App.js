@@ -7,7 +7,7 @@ import '@/css/style.css'
 
 class App extends Component {
   componentDidMount = () => {
-    Store.fetchAllPokemon()
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=10')
   }
 
   render() {
@@ -38,8 +38,12 @@ class App extends Component {
                 <div className="font-bold text-sm mb-2 text-center">{pokemon.name}</div>
                 </div>
                 <div className="px-4 py-2 pt-0 text-center">
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 m-1">#ground</span>
-                  <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 m-1">#grass</span>
+                  {pokemon.types.map((type, index) => (
+                  <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 m-1">
+                    #
+                    {type.type.name}
+                  </span>
+                  ))}
                 </div>
               </div>
             ))
