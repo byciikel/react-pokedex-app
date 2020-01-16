@@ -7,6 +7,10 @@ import '@/css/tailwind.css'
 import '@/css/style.css'
 
 class PokemonCard extends Component {
+  state = {
+    pokemonType: ['normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy']
+  }
+
   render() {
     return (
       <div>
@@ -17,16 +21,19 @@ class PokemonCard extends Component {
           Select your favorite pokemon partner.
         </div>
     
-        <nav className="flex justify-center flex-wrap mt-4 mb-8 text-white">
-          <div className="inline-block bg-gray-200 hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer">
-            #grass
-          </div>
-          <div className="inline-block bg-gray-200 hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer">
-            #fire
-          </div>
+        <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
+          {this.state.pokemonType.map((type, index) => (
+            <div
+              key={index}
+              className="w-auto bg-gray-200 hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold text-gray-700 m-1 cursor-pointer"
+              onClick={this.activatedTag}
+            >
+              #{type}
+            </div>
+          ))}
         </nav>
 
-        <div className="flex justify-center flex-wrap p-10">
+        <div className="flex justify-center flex-wrap p-10 pt-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
               <div key={index} className="flex-initial w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
@@ -66,15 +73,15 @@ class Body extends Component {
         hasMore={true}
         loader={
           <div className="bg-none text-center py-4 lg:px-4">
-            <div className="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
-              <span className="flex uppercase px-2 py-1 text-xs font-bold">load pokemon ...</span>
+            <div className="p-2 bg-red-600 items-center leading-none text-white text-center rounded-full flex inline-flex" role="alert">
+              <span className="uppercase px-2 py-1 text-xs font-bold">load pokemon ...</span>
             </div>
           </div>
         }
         endMessage={
           <div className="bg-none text-center py-4 lg:px-4">
-            <div className="p-2 bg-red-600 items-center leading-none text-white text-center lg:rounded-full flex lg:inline-flex" role="alert">
-              <span className="flex capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
+            <div className="p-2 bg-red-600 items-center leading-none text-white text-center rounded-full flex inline-flex" role="alert">
+              <span className="capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
             </div>
           </div>
         }
