@@ -11,6 +11,11 @@ class PokemonCard extends Component {
     pokemonType: ['normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy']
   }
 
+  activatedTag = (e) => {
+    let stringType = e.target.innerHTML.replace('#', '')
+    this.setState({ tagCLick: stringType })
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +30,7 @@ class PokemonCard extends Component {
           {this.state.pokemonType.map((type, index) => (
             <div
               key={index}
-              className="w-auto bg-gray-200 hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold text-gray-700 m-1 cursor-pointer"
+              className={`w-auto ${this.state.tagCLick === type ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
               onClick={this.activatedTag}
             >
               #{type}
