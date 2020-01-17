@@ -44,7 +44,7 @@ class PokemonCard extends Component {
         <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
-              <div key={index} className="flex-initial w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
+              <div key={index} className="flex-initial w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
                 <div
                   className={css`
                     background-image: url(${pokemon.sprites.front_default});
@@ -71,14 +71,44 @@ class PokemonCard extends Component {
   }
 }
 
-function CardLoader() {
-  return (
-    <ContentLoader height={500} width={480} speed={1}>
-      <rect x="0" y="0" width="480" height="250" />
-      <rect x="65" y="280" rx="3" ry="3" width="350" height="60" /> 
-      <rect x="140" y="380" rx="30" ry="30" width="200" height="60" /> 
-    </ContentLoader>
-  )
+class CardLoader extends Component {
+  state = {
+    screenSize: []
+  }
+
+  componentDidMount = () => {
+    window.addEventListener("resize", this.resize)
+    this.resize()
+  }
+
+  resize = () => {
+    this.setState({
+      screenSize: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.screenSize.width <= 655 ?
+          <ContentLoader height={480} width={480} speed={1}>
+            <rect x="0" y="0" width="480" height="200" />
+            <rect x="65" y="230" rx="3" ry="3" width="350" height="40" /> 
+            <rect x="140" y="290" rx="20" ry="20" width="200" height="40" /> 
+          </ContentLoader>
+        :
+          <ContentLoader height={500} width={480} speed={1}>
+            <rect x="0" y="0" width="480" height="250" />
+            <rect x="65" y="280" rx="3" ry="3" width="350" height="60" /> 
+            <rect x="140" y="380" rx="30" ry="30" width="200" height="60" /> 
+          </ContentLoader>
+        }
+      </div>
+    )
+  }
 }
 
 class Body extends Component {
@@ -101,7 +131,7 @@ class Body extends Component {
         loader={
           <div className="flex justify-center flex-wrap p-10 pt-0">
             {numberLoading.map(key => (
-              <div key={key} className="flex-initial w-48 h-62 rounded-lg overflow-hidden shadow-lg bg-white m-5">
+              <div key={key} className="flex-initial w-48 h-48 w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white m-5">
                 <CardLoader/>
               </div>
             ))}
