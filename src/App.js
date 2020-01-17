@@ -58,7 +58,7 @@ class PokemonCard extends Component {
                   }
                 />
                 <div className="px-4 py-0">
-                <div className="font-bold text-sm mb-2 text-center capitalize">{pokemon.name}</div>
+                <div className="font-bold text-sm mb-2 text-center capitalize">{pokemon.name.replace('-', ' ')}</div>
                 </div>
                 <div className="px-4 py-3 pt-0 text-center">
                   {pokemon.types.map((type, index) => (
