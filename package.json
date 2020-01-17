@@ -17,7 +17,7 @@
     "react-scripts": "3.3.0"
   },
   "scripts": {
-    "tailwind:css": "tailwind build src/assets/css/tailwind.src.css -c  tailwind.js -o src/css/tailwind.css",
+    "tailwind:css": "tailwind build src/assets/css/tailwind.src.css -c  tailwind.js -o src/assets/css/tailwind.css",
     "start": "yarn tailwind:css && craco start",
     "build": "yarn tailwind:css && craco build",
     "test": "craco test",
