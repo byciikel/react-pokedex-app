@@ -2,14 +2,28 @@ import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import Store from './Store'
 import InfiniteScroll from "react-infinite-scroll-component"
+import ContentLoader from "react-content-loader" 
+import { css } from "emotion"
 
-import '@/css/tailwind.css'
-import '@/css/style.css'
+import '@/assets/css/tailwind.css'
+import '@/assets/css/style.css'
+import load from '@/assets/img/loading.gif'
+
+class ImgLoader extends Component {
+  render() {
+    return (
+      <ContentLoader height={480} width={480} speed={1}>
+        <rect x="0" y="0" width="480" height="250" />
+      </ContentLoader>
+    )
+  }
+}
 
 class PokemonCard extends Component {
   state = {
     pokemonType: ['all', 'normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy'],
-    tagCLick: 'all'
+    tagCLick: 'all',
+    loadImg: 'loading',
   }
 
   activatedTag = async (e) => {
@@ -42,11 +56,18 @@ class PokemonCard extends Component {
           ))}
         </nav>
 
-        <div className="flex justify-center flex-wrap p-10 pt-0">
+        <div className="flex justify-center flex-wrap p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
               <div key={index} className="flex-initial w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
-                <img className="w-auto mx-auto pt-3" src={pokemon.sprites.front_default} alt={pokemon.name} />
+                <div
+                  className={css`
+                    background-image: url(${pokemon.sprites.front_default});
+                    background-repeat: no-repeat;
+                    background-position: center; `
+                    + " w-48 h-32 mx-auto pt-3"
+                  }
+                />
                 <div className="px-4 py-0">
                 <div className="font-bold text-sm mb-2 text-center capitalize">{pokemon.name}</div>
                 </div>
@@ -65,6 +86,18 @@ class PokemonCard extends Component {
   }
 }
 
+class CardLoader extends Component {
+  render() {
+    return (
+      <ContentLoader height={500} width={480} speed={1}>
+        <rect x="0" y="0" width="480" height="250" />
+        <rect x="65" y="280" rx="3" ry="3" width="350" height="60" /> 
+        <rect x="140" y="380" rx="30" ry="30" width="200" height="60" /> 
+      </ContentLoader>
+    )
+  }
+}
+
 class Body extends Component {
   componentDidMount = () => {
     Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
@@ -75,16 +108,20 @@ class Body extends Component {
   }
 
   render() {
+    let numberLoading = [1, 2, 3, 4, 5]
+
     return (
       <InfiniteScroll
         dataLength={Store.dataAllPokemon.length}
         next={this.fetchMorePokemon}
         hasMore={true}
         loader={
-          <div className="bg-none text-center py-4 lg:px-4">
-            <div className="p-2 bg-red-600 items-center leading-none text-white text-center rounded-full flex inline-flex" role="alert">
-              <span className="uppercase px-2 py-1 text-xs font-bold">load pokemon ...</span>
-            </div>
+          <div className="flex justify-center flex-wrap p-10 pt-0">
+            {numberLoading.map(key => (
+              <div key={key} className="flex-initial w-48 h-62 rounded-lg overflow-hidden shadow-lg bg-white m-5">
+                <CardLoader/>
+              </div>
+            ))}
           </div>
         }
         endMessage={
