@@ -12,21 +12,12 @@ class PokemonCard extends Component {
     tagCLick: 'all'
   }
 
-  activatedTag = (e) => {
+  activatedTag = async (e) => {
     let stringType = e.target.innerHTML.replace('#', '')
     this.setState({ tagCLick: stringType })
-
-    if (stringType === 'all') {
-      Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
-    } else {
-      Store.setPokemonType(stringType)
-      let filteredPokemon = Store.dataAllPokemon.filter(a =>
-        a.types.some(b =>
-          b.type.name === stringType
-        )
-      )
-      Store.resetDataAllPokemon(filteredPokemon)
-    }
+    await Store.setPokemonType(stringType)
+    await Store.resetDataAllPokemon()
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
   }
 
   render() {

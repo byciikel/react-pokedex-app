@@ -49,8 +49,8 @@ class Store {
     this.dataAllPokemon = this.dataAllPokemon.concat(datas)
   }
 
-  resetDataAllPokemon(datas) {
-    this.dataAllPokemon = datas
+  resetDataAllPokemon() {
+    this.dataAllPokemon = []
   }
 
   dataAllPokemon = []
