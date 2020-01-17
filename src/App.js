@@ -20,7 +20,7 @@ class PokemonCard extends Component {
     this.setState({ tagCLick: stringType })
     await Store.setPokemonType(stringType)
     await Store.resetDataAllPokemon()
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=12')
   }
 
   render() {
@@ -45,7 +45,7 @@ class PokemonCard extends Component {
           ))}
         </nav>
 
-        <div className="flex justify-center flex-wrap p-10 py-0">
+        <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
               <div key={index} className="flex-initial w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
@@ -89,7 +89,7 @@ class CardLoader extends Component {
 
 class Body extends Component {
   componentDidMount = () => {
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=8')
   }
 
   fetchMorePokemon = () => {
@@ -97,7 +97,7 @@ class Body extends Component {
   }
 
   render() {
-    let numberLoading = [1, 2, 3, 4, 5]
+    let numberLoading = [1, 2, 3, 4, ]
 
     return (
       <InfiniteScroll
