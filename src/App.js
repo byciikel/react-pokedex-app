@@ -5,9 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import ContentLoader from "react-content-loader" 
 import { css } from "emotion"
 
-import '@/assets/css/tailwind.css'
-import '@/assets/css/style.css'
-
 class PokemonCard extends Component {
   state = {
     pokemonType: ['all', 'normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy'],
