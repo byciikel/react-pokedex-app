@@ -8,8 +8,14 @@ class Store {
       res => res.json()
     ).then(
       (result) => {
-        this.getPokemonData(result.results)
-        this.setNextGet(result.next)
+        if (result.next) {
+          this.getPokemonData(result.results)
+          this.setNextGet(result.next)
+          this.setEndScroll(true)
+        } else {
+          this.getPokemonData(result)
+          this.setEndScroll(false)
+        }
       },
       (error) => {
         console.log(error)
@@ -44,6 +50,12 @@ class Store {
       }
     }
   }
+
+  setEndScroll(bool) {
+    this.endScroll = bool
+  }
+
+  endScrool = true
 
   setDataAllPokemon(datas) {
     this.dataAllPokemon = this.dataAllPokemon.concat(datas)
@@ -85,6 +97,8 @@ class Store {
 
 decorate(Store, {
   fetchAllPokemon: observable,
+  setEndScroll: action,
+  endScroll: observable,
   setDataAllPokemon: action,
   resetDataAllPokemon: action,
   dataAllPokemon: observable,

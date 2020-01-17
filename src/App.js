@@ -103,7 +103,7 @@ class Body extends Component {
       <InfiniteScroll
         dataLength={Store.dataAllPokemon.length}
         next={this.fetchMorePokemon}
-        hasMore={true}
+        hasMore={Store.endScroll}
         loader={
           <div className="flex justify-center flex-wrap p-10 pt-0">
             {numberLoading.map(key => (
