@@ -1,4 +1,4 @@
-import { decorate, action, observable } from 'mobx'
+import { decorate, observable } from 'mobx'
 
 class Store {
   fetchAllPokemon(url) {
@@ -11,7 +11,7 @@ class Store {
         let resultAllPokemon = []
         let AllPokemon = await result.results
         for (let i=0; i<AllPokemon.length; i++) {          
-          let pokemon = await this.fetchFunction(AllPokemon[i].url)
+          let pokemon = await this.fetchPokemonByUrl(AllPokemon[i].url)
           resultAllPokemon.push(pokemon)
         }
         console.log(resultAllPokemon)
@@ -36,7 +36,7 @@ class Store {
 
   urlNextGet = []
 
-  fetchFunction(url) {
+  fetchPokemonByUrl(url) {
     return fetch(url, {
       method: 'GET'
     }).then(
@@ -50,21 +50,12 @@ class Store {
       }
     )
   }
-
-  setFilterPokemon(pokemon) {
-    this.dataFilterPokemon = pokemon
-  }
-
-  dataFilterPokemon = []
 }
 
 decorate(Store, {
   fetchAllPokemon: observable,
   dataAllPokemon: observable,
   urlNextGet: observable,
-  fetchFunction: observable,
-  setFilterPokemon: action,
-  dataFilterPokemon: observable
 })
 
 const NewStore = new Store()
