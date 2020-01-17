@@ -7,17 +7,6 @@ import { css } from "emotion"
 
 import '@/assets/css/tailwind.css'
 import '@/assets/css/style.css'
-import load from '@/assets/img/loading.gif'
-
-class ImgLoader extends Component {
-  render() {
-    return (
-      <ContentLoader height={480} width={480} speed={1}>
-        <rect x="0" y="0" width="480" height="250" />
-      </ContentLoader>
-    )
-  }
-}
 
 class PokemonCard extends Component {
   state = {
