@@ -8,12 +8,25 @@ import '@/css/style.css'
 
 class PokemonCard extends Component {
   state = {
-    pokemonType: ['normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy']
+    pokemonType: ['all', 'normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy'],
+    tagCLick: 'all'
   }
 
   activatedTag = (e) => {
     let stringType = e.target.innerHTML.replace('#', '')
     this.setState({ tagCLick: stringType })
+
+    if (stringType === 'all') {
+      Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
+    } else {
+      Store.setPokemonType(stringType)
+      let filteredPokemon = Store.dataAllPokemon.filter(a =>
+        a.types.some(b =>
+          b.type.name === stringType
+        )
+      )
+      Store.resetDataAllPokemon(filteredPokemon)
+    }
   }
 
   render() {
@@ -63,7 +76,7 @@ class PokemonCard extends Component {
 
 class Body extends Component {
   componentDidMount = () => {
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=10')
+    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=15')
   }
 
   fetchMorePokemon = () => {
