@@ -43,8 +43,14 @@ class Store {
         )
       )
 
+      this.setTempDataPokemon(filteredPokemon)
+
       if (filteredPokemon.length !== 0) {
-        this.setDataAllPokemon(filteredPokemon)
+        if (this.tempDataPokemon.length < 4) {
+          this.fetchAllPokemon(this.urlNextGet)
+        } else {
+          this.setFilteredPokemon(this.tempDataPokemon)
+        }
       } else {
         this.fetchAllPokemon(this.urlNextGet)
       }
@@ -61,11 +67,21 @@ class Store {
     this.dataAllPokemon = this.dataAllPokemon.concat(datas)
   }
 
+  setFilteredPokemon(datas) {
+    this.dataAllPokemon = datas
+  }
+
+  setTempDataPokemon(datas) {
+    this.tempDataPokemon = this.tempDataPokemon.concat(datas)
+  }
+
   resetDataAllPokemon() {
     this.dataAllPokemon = []
+    this.tempDataPokemon = []
   }
 
   dataAllPokemon = []
+  tempDataPokemon = []
 
   setNextGet(url) {
     this.urlNextGet = url
