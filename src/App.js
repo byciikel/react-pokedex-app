@@ -33,7 +33,7 @@ class PokemonCard extends Component {
           {this.state.pokemonType.map((type, index) => (
             <div
               key={index}
-              className={`w-auto ${this.state.tagCLick === type ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
+              className={`w-auto focus:outline-none ${this.state.tagCLick === type ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
               onClick={this.activatedTag}
             >
               #{type}
@@ -44,7 +44,7 @@ class PokemonCard extends Component {
         <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
-              <div key={index} className="flex-initial w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
+              <div key={index} className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
                 <div
                   className={css`
                     background-image: url(${pokemon.sprites.front_default});
