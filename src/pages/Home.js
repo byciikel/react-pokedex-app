@@ -6,6 +6,8 @@ import ContentLoader from "react-content-loader"
 import { css } from "emotion"
 import { Link } from 'react-router-dom'
 
+import Header from './components/Header'
+
 class PokemonCard extends Component {
   state = {
     pokemonType: [
@@ -84,13 +86,7 @@ class PokemonCard extends Component {
   render() {
     return (
       <div>
-        <div className="custom-title w-5/6 sm:w-2/4 lg:w-1/3 mx-auto pt-6 border-b-2 border-red-600 text-center text-5xl text-yellow-500 font-black subpixel-antialiased">
-          POKEDEX APP
-        </div>
-        <div className="p-2 text-center text-lg text-gray-700 antialiased">
-          Select your favorite pokemon partner.
-        </div>
-
+        <Header/>
         <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
           {this.state.pokemonType.map((type, index) => (
             <div
