@@ -1,6 +1,28 @@
 import { decorate, action, observable } from 'mobx'
 
 class Store {
+  pokeType = [
+    { name: 'all', color: 'EDf2f7' },
+    { name: 'normal', color: '#a8a878' },
+    { name: 'fire', color: '#f08030' },
+    { name: 'water', color: '#6890f0' },
+    { name: 'grass', color: '#78c850' },
+    { name: 'flying', color: '#a890f0' },
+    { name: 'fighting', color: '#c03028' },
+    { name: 'poison', color: '#a040a0' },
+    { name: 'electric', color: '#f8d030' },
+    { name: 'ground', color: '#e0c068' },
+    { name: 'rock', color: '#b8a038' },
+    { name: 'psychic', color: '#f85888' },
+    { name: 'ice', color: '#98d8d8' },
+    { name: 'bug', color: '#a8b820' },
+    { name: 'ghost', color: '#705898' },
+    { name: 'steel', color: '#b8b8d0' },
+    { name: 'dragon', color: '#7038f8' },
+    { name: 'dark', color: '#705848' },
+    { name: 'fairy', color: '#ee99ac' },
+  ]
+
   fetchAllPokemon(url) {
     return fetch(url, {
       method: 'GET'
@@ -132,6 +154,7 @@ class Store {
 }
 
 decorate(Store, {
+  pokeType: observable,
   fetchAllPokemon: observable,
   setEndScroll: action,
   endScroll: observable,
@@ -144,7 +167,7 @@ decorate(Store, {
   setDetailPokemon: action,
   detailPokemon: observable,
   setStatusModal: action,
-  statusModal: observable
+  statusModal: observable,
 })
 
 const NewStore = new Store()

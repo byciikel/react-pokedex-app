@@ -9,27 +9,6 @@ import Modal from './Modal'
 
 class PokemonCard extends Component {
   state = {
-    pokemonType: [
-      { name: 'all', color: 'EDf2f7' },
-      { name: 'normal', color: '#a8a878' },
-      { name: 'fire', color: '#f08030' },
-      { name: 'water', color: '#6890f0' },
-      { name: 'grass', color: '#78c850' },
-      { name: 'flying', color: '#a890f0' },
-      { name: 'fighting', color: '#c03028' },
-      { name: 'poison', color: '#a040a0' },
-      { name: 'electric', color: '#f8d030' },
-      { name: 'ground', color: '#e0c068' },
-      { name: 'rock', color: '#b8a038' },
-      { name: 'psychic', color: '#f85888' },
-      { name: 'ice', color: '#98d8d8' },
-      { name: 'bug', color: '#a8b820' },
-      { name: 'ghost', color: '#705898' },
-      { name: 'steel', color: '#b8b8d0' },
-      { name: 'dragon', color: '#7038f8' },
-      { name: 'dark', color: '#705848' },
-      { name: 'fairy', color: '#ee99ac' },
-    ],
     tagCLick: 'all',
   }
 
@@ -44,12 +23,12 @@ class PokemonCard extends Component {
   loadDetailPokemon = (pokemon) => {
     let abilities = []
     let types = []
-    let form = [
-      { name: pokemon.name },
-      { weight: pokemon.weight/10 + ' Kilogram' },
-      { height: pokemon.height/10 + ' Meter' },
-      { pic: pokemon.sprites.front_default },
-    ]
+    let form = {
+      name: pokemon.name,
+      weight: pokemon.weight/10 + ' Kilogram',
+      height: pokemon.height/10 + ' Meter',
+      pic: pokemon.sprites.front_default,
+    }
     let evolve = []
 
     Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`).then(async species => {
@@ -77,6 +56,7 @@ class PokemonCard extends Component {
         abilities: abilities,
         evolve: evolve,
       }
+      console.log(detail)
 
       Store.setDetailPokemon(detail)
       Store.setStatusModal(true)
@@ -95,7 +75,7 @@ class PokemonCard extends Component {
         </div>
 
         <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
-          {this.state.pokemonType.map((type, index) => (
+          {Store.pokeType.map((type, index) => (
             <div
               key={index}
               className={`w-auto focus:outline-none ${this.state.tagCLick === type.name ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
@@ -131,7 +111,7 @@ class PokemonCard extends Component {
                     <span
                       key={index}
                       className={css`
-                        background-color: ${this.state.pokemonType.find(e => e.name === type.type.name).color};`
+                        background-color: ${Store.pokeType.find(e => e.name === type.type.name).color};`
                         + " inline-block bg-fairy rounded-full px-3 py-1 text-xs font-semibold text-white m-1"
                       }
                     >

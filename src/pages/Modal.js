@@ -3,6 +3,24 @@ import { css } from "emotion"
 import Store from './Store'
 
 export class Modal extends Component {
+  state = {
+    screenSize: []
+  }
+
+  componentDidMount = () => {
+    window.addEventListener("resize", this.resize)
+    this.resize()
+  }
+
+  resize = () => {
+    this.setState({
+      screenSize: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    })
+  }
+
   closeModal = () => {
     Store.setStatusModal(false)
     document.body.style.overflow = 'unset';
@@ -16,65 +34,70 @@ export class Modal extends Component {
         <div className="modal-container bg-white w-full lg:w-3/4 lg:h-auto h-screen mx-auto rounded shadow-lg z-50 overflow-y-auto">
 
           <div className="modal-content p-8 text-center">
-            <div className="md:flex md:w-11/12 md:mx-auto">
-              <div className="md:flex-initial">
+            <div className="sm:flex sm:w-11/12 sm:mx-auto">
+              <div className="sm:flex-initial">
                 <div className={css`
-                  background-image: url(});
+                  background-image: url(${Store.detailPokemon.form.pic});
                   background-repeat: no-repeat;
-                  background-position: center;
-                  background-color: #000`
-                  + " w-32 h-32 rounded-full mx-auto mb-2"
+                  background-position: center;`
+                  + " w-24 h-24 rounded-full mx-auto mb-2"
                 }/>
               </div>
 
-              <div className="md:flex-initial md:text-left md:p-4">
-                <div className="text-2xl">Pikachu</div>
-                <div className="text-gray-600 antialiased">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
+              <div className="sm:flex-initial sm:text-left sm:px-4">
+                <div className="text-2xl capitalize">{Store.detailPokemon.form.name.replace('-', ' ')}</div>
+                <div className="text-gray-600 antialiased">{Store.detailPokemon.description}</div>
               </div>
               
             </div>
 
-            <span className={css`
-              background-color: #000;`
-              + " inline-block bg-fairy rounded-full px-3 py-1 mt-2 mb-3 text-xs font-semibold text-white m-1"
-            }>
-              #fire
-            </span>
+            {Store.detailPokemon.types.map((type, index) => (
+              <span key={index} className={css`
+                background-color: ${Store.pokeType.find(e => e.name === type).color};`
+                + " inline-block bg-fairy rounded-full px-3 py-1 mt-2 mb-3 text-xs font-semibold text-white m-1"
+              }>
+                #{type}
+              </span>
+            ))}
 
             <div className="w-full h-auto bg-gray-200 my-3 p-2">
-              <div className="text-sm text-gray-600 pb-1">Ability: Overglow</div>
-              <div className="text-sm text-gray-600 pb-1">Description: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</div>
-              <div className="text-sm text-gray-600 pb-1">Width: 3 meter</div>
-              <div className="text-sm text-gray-600 pb-1">Width: 3 kilogram</div>
+              {Store.detailPokemon.abilities.map((ability, index) => (
+                <div key={index}>
+                  <div className="text-sm text-gray-600 pb-1 capitalize">Ability {index+1}: {ability.name}</div>
+                  <div className="text-sm text-gray-600 pb-1">{ability.effect}</div>
+                </div>
+              ))}
+              <div className="text-sm text-gray-600 pb-1">Weight: {Store.detailPokemon.form.weight}</div>
+              <div className="text-sm text-gray-600 pb-1">Height: {Store.detailPokemon.form.height}</div>
             </div>
 
-            <div className="md:flex">
+            {this.state.screenSize.width < 640 ?
+              <div className="text-1xl antialiased text-red-600">Evolution Pokemon (Top to Bottom)</div>
+            :
+              <div className="text-1xl antialiased text-red-600">Evolution Pokemon (Left to Right)</div>
+            }
+
+            <div className="sm:flex">
               <div className={css`
                 background-image: url(});
                 background-repeat: no-repeat;
                 background-position: center;
                 background-color: #000`
-                + " w-32 h-32 rounded-full mx-auto my-4 md:flex-initial"
+                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
               }/>
-              <div className="uppercase my-auto text-red-600 md:flex-initial align-middle">
-                evolve to
-              </div>
               <div className={css`
                 background-image: url(});
                 background-repeat: no-repeat;
                 background-position: center;
                 background-color: #000`
-                + " w-32 h-32 rounded-full mx-auto my-4 md:flex-initial"
+                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
               }/>
-              <div className="uppercase my-auto text-red-600 md:flex-initial align-middle">
-                evolve to
-              </div>
               <div className={css`
                 background-image: url(});
                 background-repeat: no-repeat;
                 background-position: center;
                 background-color: #000`
-                + " w-32 h-32 rounded-full mx-auto my-4 md:flex-initial"
+                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
               }/>
             </div>
 
