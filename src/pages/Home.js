@@ -5,6 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component"
 import ContentLoader from "react-content-loader" 
 import { css } from "emotion"
 
+import Modal from './Modal'
+
 class PokemonCard extends Component {
   state = {
     pokemonType: [
@@ -89,6 +91,8 @@ class PokemonCard extends Component {
         <div className="p-2 text-center text-lg text-gray-700 antialiased">
           Select your favorite pokemon partner.
         </div>
+
+        <Modal/>
 
         <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
           {this.state.pokemonType.map((type, index) => (
