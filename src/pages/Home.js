@@ -44,8 +44,8 @@ class PokemonCard extends Component {
         )
       )
 
+      let evolve = []
       Store.fetchPokemonByUrl(species.evolution_chain.url).then(evo => {
-        let evolve = []
         let dataChain_1 = []
         let dataChain_2 = []
         let dataChain_3 = []
@@ -57,7 +57,7 @@ class PokemonCard extends Component {
             })
           })
   
-          if (evo.chain.evolves_to) {
+          if (evo.chain.evolves_to.length > 0) {
             evo.chain.evolves_to.map(e =>
               Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon/${e.species.name}/`).then(chain_2 => {
                 dataChain_2.push({
@@ -65,7 +65,7 @@ class PokemonCard extends Component {
                   pic: chain_2.sprites.front_default
                 })
   
-                if (e.evolves_to) {
+                if (e.evolves_to.length > 0) {
                   e.evolves_to.map(y =>
                     Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon/${y.species.name}/`).then(chain_3 => {
                       dataChain_3.push({
@@ -73,29 +73,49 @@ class PokemonCard extends Component {
                         pic: chain_3.sprites.front_default
                       })
   
-                      evolve = {
+                      loadDetail({
                         chain_1: dataChain_1,
                         chain_2: dataChain_2,
                         chain_3: dataChain_3,
-                      }
-  
-                      Store.setDetailPokemon({
-                        form: form,
-                        description: species.flavor_text_entries.find(e => e.language.name === 'en').flavor_text,
-                        types: types,
-                        abilities: abilities,
-                        evolve: evolve,
                       })
-                      Store.setStatusModal(true)
-                      document.body.style.overflow = 'hidden';
                     })
                   )
+                } else {
+                  loadDetail({
+                    chain_1: dataChain_1,
+                    chain_2: dataChain_2,
+                    chain_3: [],
+                  })
                 }
               })
             )
+          } else {
+            loadDetail({
+              chain_1: dataChain_1,
+              chain_2: [],
+              chain_3: [],
+            })
           }
+        } else {
+          loadDetail({
+            chain_1: [],
+            chain_2: [],
+            chain_3: [],
+          })
         }
       })
+
+      function loadDetail(evolve) {
+        Store.setDetailPokemon({
+          form: form,
+          description: species.flavor_text_entries.find(e => e.language.name === 'en').flavor_text,
+          types: types,
+          abilities: abilities,
+          evolve: evolve,
+        })
+        Store.setStatusModal(true)
+        document.body.style.overflow = 'hidden';
+      }
     })
   }
 
