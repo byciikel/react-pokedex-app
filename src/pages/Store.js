@@ -30,7 +30,12 @@ class Store {
 
     for (let i=0; i<AllPokemon.length; i++) {          
       let pokemon = await this.fetchPokemonByUrl(AllPokemon[i].url)
-      resultAllPokemon.push(pokemon)
+      resultAllPokemon.push({
+        id: pokemon.id,
+        name: pokemon.name,
+        sprites: pokemon.sprites,
+        types: pokemon.types
+      })
     }
 
     if (stringType === 'all') {
