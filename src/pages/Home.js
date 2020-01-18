@@ -114,18 +114,16 @@ class PokemonCard extends Component {
                 className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer"
                 onClick={() => this.loadDetailPokemon(pokemon)}
               >
-                <div
-                  className={css`
-                    background-image: url(${pokemon.sprites.front_default});
-                    background-repeat: no-repeat;
-                    background-position: center; `
-                    + " w-48 h-32 mx-auto pt-3"
-                  }
-                />
+                <div className={css`
+                  background-image: url(${pokemon.sprites.front_default});
+                  background-repeat: no-repeat;
+                  background-position: center;`
+                  + " w-48 h-32 mx-auto pt-3"
+                }/>
                 <div className="px-4 py-0">
-                <div className="font-bold text-sm mb-2 text-center capitalize">
-                  {pokemon.name.replace('-', ' ')}
-                </div>
+                  <div className="font-bold text-sm mb-2 text-center capitalize">
+                    {pokemon.name.replace('-', ' ')}
+                  </div>
                 </div>
                 <div className="px-4 py-3 pt-0 text-center">
                   {pokemon.types.map((type, index) => (
