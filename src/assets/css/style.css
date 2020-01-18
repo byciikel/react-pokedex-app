@@ -7,3 +7,13 @@ body {
   -webkit-text-stroke-width: 2.5px;
   -webkit-text-stroke-color: #283593;
 }
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+
+.modal-active body {
+  overflow-x: hidden;
+  overflow-y: visible;
+  /* overflow-y: hidden; */
+}

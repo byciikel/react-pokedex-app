@@ -4,9 +4,8 @@ import Store from './Store'
 import InfiniteScroll from "react-infinite-scroll-component"
 import ContentLoader from "react-content-loader" 
 import { css } from "emotion"
-import { Link } from 'react-router-dom'
 
-import Header from './components/Header'
+import Modal from './Modal'
 
 class PokemonCard extends Component {
   state = {
@@ -86,7 +85,15 @@ class PokemonCard extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <div className="custom-title w-5/6 sm:w-2/4 lg:w-1/3 mx-auto pt-6 border-b-2 border-red-600 text-center text-5xl text-yellow-500 font-black subpixel-antialiased">
+          POKEDEX APP
+        </div>
+        <div className="p-2 text-center text-lg text-gray-700 antialiased">
+          Select your favorite pokemon partner.
+        </div>
+
+        <Modal/>
+
         <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
           {this.state.pokemonType.map((type, index) => (
             <div
@@ -102,24 +109,22 @@ class PokemonCard extends Component {
         <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
-              <Link
+              <div
                 to="/detail"
                 key={index}
                 className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer"
                 onClick={() => this.loadDetailPokemon(pokemon)}
               >
-                <div
-                  className={css`
-                    background-image: url(${pokemon.sprites.front_default});
-                    background-repeat: no-repeat;
-                    background-position: center; `
-                    + " w-48 h-32 mx-auto pt-3"
-                  }
-                />
+                <div className={css`
+                  background-image: url(${pokemon.sprites.front_default});
+                  background-repeat: no-repeat;
+                  background-position: center;`
+                  + " w-48 h-32 mx-auto pt-3"
+                }/>
                 <div className="px-4 py-0">
-                <div className="font-bold text-sm mb-2 text-center capitalize">
-                  {pokemon.name.replace('-', ' ')}
-                </div>
+                  <div className="font-bold text-sm mb-2 text-center capitalize">
+                    {pokemon.name.replace('-', ' ')}
+                  </div>
                 </div>
                 <div className="px-4 py-3 pt-0 text-center">
                   {pokemon.types.map((type, index) => (
@@ -134,7 +139,7 @@ class PokemonCard extends Component {
                     </span>
                   ))}
                 </div>
-              </Link>
+              </div>
             ))
             : <div/>
           }
