@@ -237,6 +237,8 @@ class Body extends Component {
     let numberLoading = [1, 2, 3, 4]
 
     return (
+      <div>
+        {Store.statusModal ? <Modal/> : <div/>}
         <InfiniteScroll
           dataLength={Store.dataAllPokemon.length}
           next={this.fetchMorePokemon}
@@ -258,9 +260,9 @@ class Body extends Component {
             </div>
           }
         >
-          {Store.statusModal ? <Modal/> : <div/>}
           <PokemonCard/>
         </InfiniteScroll>
+      </div>
     )
   }
 }

@@ -13,7 +13,7 @@ export class Modal extends Component {
       <div className={`${Store.statusModal ? 'overflow-hidden' : 'opacity-0 pointer-events-none'} fixed w-full h-full top-0 left-0 flex items-center justify-center`}>
         <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
         
-        <div className="modal-container bg-white w-full lg:w-3/4 lg:h-auto h-screen mx-auto rounded shadow-lg z-50 overflow-y-auto">
+        <div className="modal-container bg-white w-full h-screen mx-auto rounded shadow-lg z-50 overflow-y-auto">
 
           <div className="modal-content p-8 text-center">
             <div className="sm:flex sm:w-11/12 sm:mx-auto">
@@ -28,7 +28,7 @@ export class Modal extends Component {
 
               <div className="sm:flex-initial sm:text-left sm:px-4">
                 <div className="text-2xl capitalize">{Store.detailPokemon.form.name.replace('-', ' ')}</div>
-                <div className="text-gray-600 antialiased">{Store.detailPokemon.description}</div>
+                <div className="text-gray-600 my-3 antialiased">{Store.detailPokemon.description}</div>
               </div>
               
             </div>
@@ -53,9 +53,9 @@ export class Modal extends Component {
               <div className="text-sm text-gray-600 pb-1">Height: {Store.detailPokemon.form.height}</div>
             </div>
 
-            <div className="sm:flex">
-              <div className="sm:flex-initial mx-auto my-4">
-                <div className="text-1xl my-3 antialiased text-red-600 font-bold">Initial Pokemon</div>
+            <div className="sm:flex mt-6">
+              <div className={`${Store.detailPokemon.evolve.chain_1.length > 0 ? 'inline' : 'hidden' } sm:flex-initial mx-auto my-4`}>
+                <div className="text-1xl antialiased text-red-600 font-bold">Initial Pokemon</div>
                 {Store.detailPokemon.evolve.chain_1.map((chain_1, index) => (
                   <div key={index}>
                     <div className={css`
@@ -70,8 +70,8 @@ export class Modal extends Component {
                   </div>
                 ))}
               </div>
-              <div className="sm:flex-initial mx-auto my-4">
-                <div className="text-1xl my-3 antialiased text-red-600 font-bold">First Evolution</div>
+              <div className={`${Store.detailPokemon.evolve.chain_2.length > 0 ? 'inline' : 'hidden' } s:flex-initial mx-auto my-4`}>
+                <div className="text-1xl antialiased text-red-600 font-bold">First Evolution</div>
                 {Store.detailPokemon.evolve.chain_2.map((chain_2, index) => (
                   <div key={index}>
                     <div className={css`
@@ -86,8 +86,8 @@ export class Modal extends Component {
                   </div>
                 ))}
               </div>
-              <div className="sm:flex-initial mx-auto my-4">
-                <div className="text-1xl my-3 antialiased text-red-600 font-bold">Second Evolution</div>
+              <div className={`${Store.detailPokemon.evolve.chain_3.length > 0 ? 'inline' : 'hidden' } sm:flex-initial mx-auto my-4`}>
+                <div className="text-1xl antialiased text-red-600 font-bold">Second Evolution</div>
                 {Store.detailPokemon.evolve.chain_3.map((chain_3, index) => (
                   <div key={index}>
                     <div className={css`
@@ -105,7 +105,7 @@ export class Modal extends Component {
             </div>
 
             <div
-              className="md:bottom-0 w-12 mx-auto bg-transparent border-2 border-gray-500 hover:border-red-600 rounded-full p-3 mt-8 cursor-pointer text-gray-600 hover:text-red-600"
+              className="w-12 mx-auto bg-transparent border-2 border-gray-500 hover:border-red-600 rounded-full p-3 mt-3 cursor-pointer text-gray-600 hover:text-red-600"
               onClick={this.closeModal}
             >
               <svg className="fill-current mx-auto text-center" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
