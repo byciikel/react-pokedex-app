@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ContentLoader from "react-content-loader" 
 
-export class CardLoader extends Component {
+export class CardSkeleton extends Component {
   state = {
     screenSize: []
   }
@@ -41,4 +41,4 @@ export class CardLoader extends Component {
   }
 }
 
-export default CardLoader
+export default CardSkeleton

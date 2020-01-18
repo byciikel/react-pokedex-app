@@ -7,7 +7,7 @@ import Modal from './component/Modal'
 import PokemonCard from './component/PokemonCard'
 import Header from './component/Header'
 import Filter from './component/Filter'
-import CardLoader from './component/CardLoader'
+import CardSkeleton from './component/CardSkeleton'
 
 export class Home extends Component {
   componentDidMount = () => {
@@ -34,7 +34,7 @@ export class Home extends Component {
             <div className="flex justify-center flex-wrap p-10 pt-0">
               {numberLoading.map(key => (
                 <div key={key} className="flex-initial w-48 h-48 w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white m-5">
-                  <CardLoader/>
+                  <CardSkeleton/>
                 </div>
               ))}
             </div>
