@@ -21,7 +21,7 @@
     "start": "yarn tailwind:css && craco start",
     "build": "yarn tailwind:css && craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
