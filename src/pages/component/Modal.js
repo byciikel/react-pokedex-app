@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { css } from "emotion"
-import Store from './Store'
+import Store from '../Store'
 
 export class Modal extends Component {
   closeModal = () => {
@@ -105,7 +105,7 @@ export class Modal extends Component {
             </div>
 
             <div
-              className="w-12 mx-auto bg-transparent border-2 border-gray-500 hover:border-red-600 rounded-full p-3 mt-3 cursor-pointer text-gray-600 hover:text-red-600"
+              className="w-12 mx-auto bg-transparent border-2 border-gray-500 hover:border-red-600 rounded-full p-3 mt-6 cursor-pointer text-gray-600 hover:text-red-600"
               onClick={this.closeModal}
             >
               <svg className="fill-current mx-auto text-center" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
