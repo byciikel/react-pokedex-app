@@ -4,6 +4,7 @@ import Store from './Store'
 import InfiniteScroll from "react-infinite-scroll-component"
 import ContentLoader from "react-content-loader" 
 import { css } from "emotion"
+import { Link } from 'react-router-dom'
 
 class PokemonCard extends Component {
   state = {
@@ -105,7 +106,8 @@ class PokemonCard extends Component {
         <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
-              <div
+              <Link
+                to="/detail"
                 key={index}
                 className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer"
                 onClick={() => this.loadDetailPokemon(pokemon)}
@@ -136,7 +138,7 @@ class PokemonCard extends Component {
                     </span>
                   ))}
                 </div>
-              </div>
+              </Link>
             ))
             : <div/>
           }
