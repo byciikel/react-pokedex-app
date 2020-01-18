@@ -29,7 +29,6 @@ class PokemonCard extends Component {
       height: pokemon.height/10 + ' Meter',
       pic: pokemon.sprites.front_default,
     }
-    let evolve = []
 
     Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`).then(async species => {
       pokemon.types.map(e =>
@@ -45,26 +44,27 @@ class PokemonCard extends Component {
         )
       )
 
-      await Store.fetchPokemonByUrl(species.evolution_chain.url).then(evo => {
+      Store.fetchPokemonByUrl(species.evolution_chain.url).then(evo => {
+        let evolve = []
+        let dataChain_1 = []
+        let dataChain_2 = []
+        let dataChain_3 = []
         if (evo.chain) {
           Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon/${evo.chain.species.name}/`).then(chain_1 => {
-            evolve.push({
-              chain_1: {
-                name: chain_1.name,
-                pic: chain_1.sprites.front_default
-              }
+            dataChain_1.push({
+              name: chain_1.name,
+              pic: chain_1.sprites.front_default
             })
           })
+  
           if (evo.chain.evolves_to) {
-            let dataChain_2 = []
-            let dataChain_3 = []
             evo.chain.evolves_to.map(e =>
               Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon/${e.species.name}/`).then(chain_2 => {
                 dataChain_2.push({
                   name: chain_2.name,
                   pic: chain_2.sprites.front_default
                 })
-
+  
                 if (e.evolves_to) {
                   e.evolves_to.map(y =>
                     Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon/${y.species.name}/`).then(chain_3 => {
@@ -72,28 +72,30 @@ class PokemonCard extends Component {
                         name: chain_3.name,
                         pic: chain_3.sprites.front_default
                       })
+  
+                      evolve = {
+                        chain_1: dataChain_1,
+                        chain_2: dataChain_2,
+                        chain_3: dataChain_3,
+                      }
+  
+                      Store.setDetailPokemon({
+                        form: form,
+                        description: species.flavor_text_entries.find(e => e.language.name === 'en').flavor_text,
+                        types: types,
+                        abilities: abilities,
+                        evolve: evolve,
+                      })
+                      Store.setStatusModal(true)
+                      document.body.style.overflow = 'hidden';
                     })
                   )
                 }
               })
             )
-            evolve.push({ chain_2: dataChain_2})
-            evolve.push({ chain_3: dataChain_3})
           }
         }
       })
-
-      let detail = {
-        form: form,
-        description: species.flavor_text_entries.find(e => e.language.name === 'en').flavor_text,
-        types: types,
-        abilities: abilities,
-        evolve: evolve,
-      }
-
-      Store.setDetailPokemon(detail)
-      Store.setStatusModal(true)
-      document.body.style.overflow = 'hidden';
     })
   }
 

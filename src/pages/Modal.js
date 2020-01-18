@@ -3,24 +3,6 @@ import { css } from "emotion"
 import Store from './Store'
 
 export class Modal extends Component {
-  state = {
-    screenSize: []
-  }
-
-  componentDidMount = () => {
-    window.addEventListener("resize", this.resize)
-    this.resize()
-  }
-
-  resize = () => {
-    this.setState({
-      screenSize: {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
-    })
-  }
-
   closeModal = () => {
     Store.setStatusModal(false)
     document.body.style.overflow = 'unset';
@@ -71,34 +53,55 @@ export class Modal extends Component {
               <div className="text-sm text-gray-600 pb-1">Height: {Store.detailPokemon.form.height}</div>
             </div>
 
-            {this.state.screenSize.width < 640 ?
-              <div className="text-1xl antialiased text-red-600">Evolution Pokemon (Top to Bottom)</div>
-            :
-              <div className="text-1xl antialiased text-red-600">Evolution Pokemon (Left to Right)</div>
-            }
-
             <div className="sm:flex">
-              <div className={css`
-                background-image: url(});
-                background-repeat: no-repeat;
-                background-position: center;
-                background-color: #000`
-                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
-              }/>
-              <div className={css`
-                background-image: url(});
-                background-repeat: no-repeat;
-                background-position: center;
-                background-color: #000`
-                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
-              }/>
-              <div className={css`
-                background-image: url(});
-                background-repeat: no-repeat;
-                background-position: center;
-                background-color: #000`
-                + " w-24 h-24 rounded-full mx-auto my-4 sm:flex-initial"
-              }/>
+              <div className="sm:flex-initial mx-auto my-4">
+                <div className="text-1xl my-3 antialiased text-red-600 font-bold">Initial Pokemon</div>
+                {Store.detailPokemon.evolve.chain_1.map((chain_1, index) => (
+                  <div key={index}>
+                    <div className={css`
+                      background-image: url(${chain_1.pic});
+                      background-repeat: no-repeat;
+                      background-position: center;`
+                      + " w-24 h-24 rounded-full mx-auto"
+                    }/>
+                    <div className="my-3 text-1xl text-gray-600 antialiased capitalize">
+                      {chain_1.name.replace('-', ' ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="sm:flex-initial mx-auto my-4">
+                <div className="text-1xl my-3 antialiased text-red-600 font-bold">First Evolution</div>
+                {Store.detailPokemon.evolve.chain_2.map((chain_2, index) => (
+                  <div key={index}>
+                    <div className={css`
+                      background-image: url(${chain_2.pic});
+                      background-repeat: no-repeat;
+                      background-position: center;`
+                      + " w-24 h-24 rounded-full mx-auto"
+                    }/>
+                    <div className="my-3 text-1xl text-gray-600 antialiased capitalize">
+                      {chain_2.name.replace('-', ' ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="sm:flex-initial mx-auto my-4">
+                <div className="text-1xl my-3 antialiased text-red-600 font-bold">Second Evolution</div>
+                {Store.detailPokemon.evolve.chain_3.map((chain_3, index) => (
+                  <div key={index}>
+                    <div className={css`
+                      background-image: url(${chain_3.pic});
+                      background-repeat: no-repeat;
+                      background-position: center;`
+                      + " w-24 h-24 rounded-full mx-auto"
+                    }/>
+                    <div className="my-3 text-1xl text-gray-600 antialiased capitalize">
+                      {chain_3.name.replace('-', ' ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div
