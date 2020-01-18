@@ -123,6 +123,12 @@ class Store {
   }
 
   detailPokemon = []
+
+  setStatusModal(e) {
+    this.statusModal = e
+  }
+
+  statusModal = false
 }
 
 decorate(Store, {
@@ -137,6 +143,8 @@ decorate(Store, {
   pokemonType: observable,
   setDetailPokemon: action,
   detailPokemon: observable,
+  setStatusModal: action,
+  statusModal: observable
 })
 
 const NewStore = new Store()

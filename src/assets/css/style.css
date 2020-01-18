@@ -9,11 +9,7 @@ body {
 }
 
 .modal {
-  transition: opacity 0.25s ease;
-}
-
-.modal-active body {
-  overflow-x: hidden;
-  overflow-y: visible;
-  /* overflow-y: hidden; */
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
 }

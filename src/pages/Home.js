@@ -79,6 +79,8 @@ class PokemonCard extends Component {
       }
 
       Store.setDetailPokemon(detail)
+      Store.setStatusModal(true)
+      document.body.style.overflow = 'hidden';
     })
   }
 
@@ -91,8 +93,6 @@ class PokemonCard extends Component {
         <div className="p-2 text-center text-lg text-gray-700 antialiased">
           Select your favorite pokemon partner.
         </div>
-
-        <Modal/>
 
         <nav className="flex justify-center flex-wrap mt-4 mb-4 w-5/6 sm:w-2/4 lg:w-2/3 mx-auto text-white">
           {this.state.pokemonType.map((type, index) => (
@@ -202,29 +202,30 @@ class Body extends Component {
     let numberLoading = [1, 2, 3, 4]
 
     return (
-      <InfiniteScroll
-        dataLength={Store.dataAllPokemon.length}
-        next={this.fetchMorePokemon}
-        hasMore={Store.endScroll}
-        loader={
-          <div className="flex justify-center flex-wrap p-10 pt-0">
-            {numberLoading.map(key => (
-              <div key={key} className="flex-initial w-48 h-48 w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white m-5">
-                <CardLoader/>
-              </div>
-            ))}
-          </div>
-        }
-        endMessage={
-          <div className="bg-none text-center py-4 lg:px-4">
-            <div className="p-2 bg-red-600 items-center leading-none text-white text-center rounded-full flex inline-flex" role="alert">
-              <span className="capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
+        <InfiniteScroll
+          dataLength={Store.dataAllPokemon.length}
+          next={this.fetchMorePokemon}
+          hasMore={Store.endScroll}
+          loader={
+            <div className="flex justify-center flex-wrap p-10 pt-0">
+              {numberLoading.map(key => (
+                <div key={key} className="flex-initial w-48 h-48 w-64 sm:w-48 rounded-lg overflow-hidden shadow-lg bg-white m-5">
+                  <CardLoader/>
+                </div>
+              ))}
             </div>
-          </div>
-        }
-      >
-        <PokemonCard/>
-      </InfiniteScroll>
+          }
+          endMessage={
+            <div className="bg-none text-center py-4 lg:px-4">
+              <div className="p-2 bg-red-600 items-center leading-none text-white text-center rounded-full flex inline-flex" role="alert">
+                <span className="capitalize px-2 py-1 text-xs font-bold">it's all pokemon we have</span>
+              </div>
+            </div>
+          }
+        >
+          {Store.statusModal ? <Modal/> : <div/>}
+          <PokemonCard/>
+        </InfiniteScroll>
     )
   }
 }
