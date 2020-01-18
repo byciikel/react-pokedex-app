@@ -117,6 +117,12 @@ class Store {
       }
     )
   }
+
+  setDetailPokemon(datas) {
+    this.detailPokemon = datas
+  }
+
+  detailPokemon = []
 }
 
 decorate(Store, {
@@ -129,6 +135,8 @@ decorate(Store, {
   urlNextGet: observable,
   setPokemonType: action,
   pokemonType: observable,
+  setDetailPokemon: action,
+  detailPokemon: observable,
 })
 
 const NewStore = new Store()

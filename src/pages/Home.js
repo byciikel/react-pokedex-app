@@ -75,6 +75,8 @@ class PokemonCard extends Component {
         abilities: abilities,
         evolve: evolve,
       }
+
+      Store.setDetailPokemon(detail)
     })
   }
 
