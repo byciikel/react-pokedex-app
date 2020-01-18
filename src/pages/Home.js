@@ -44,7 +44,6 @@ class PokemonCard extends Component {
         )
       )
 
-      let evolve = []
       Store.fetchPokemonByUrl(species.evolution_chain.url).then(evo => {
         let dataChain_1 = []
         let dataChain_2 = []
