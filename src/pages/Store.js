@@ -33,8 +33,11 @@ class Store {
       resultAllPokemon.push({
         id: pokemon.id,
         name: pokemon.name,
+        weight: pokemon.weight,
+        height: pokemon.height,
         sprites: pokemon.sprites,
-        types: pokemon.types
+        types: pokemon.types,
+        abilities: pokemon.abilities,
       })
     }
 

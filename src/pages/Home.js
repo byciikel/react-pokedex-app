@@ -36,7 +36,46 @@ class PokemonCard extends Component {
     this.setState({ tagCLick: stringType })
     await Store.setPokemonType(stringType)
     await Store.resetDataAllPokemon()
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=30')
+    Store.fetchAllPokemon(`https://pokeapi.co/api/v2/pokemon?limit=30`)
+  }
+
+  loadDetailPokemon = (pokemon) => {
+    let abilities = []
+    let types = []
+    let form = [
+      { name: pokemon.name },
+      { weight: pokemon.weight/10 + ' Kilogram' },
+      { height: pokemon.height/10 + ' Meter' },
+      { pic: pokemon.sprites.front_default },
+    ]
+    let evolve = []
+
+    Store.fetchPokemonByUrl(`https://pokeapi.co/api/v2/pokemon-species/${pokemon.id}/`).then(async species => {
+      pokemon.types.map(e =>
+        types.push(e.type.name)  
+      )
+
+      pokemon.abilities.map(e =>
+        Store.fetchPokemonByUrl(e.ability.url).then(ability =>
+          abilities.push({
+            name: e.ability.name,
+            effect: ability.flavor_text_entries[2].flavor_text
+          })
+        )
+      )
+
+      await Store.fetchPokemonByUrl(species.evolution_chain.url).then(evo => {
+        evolve = evo.chain
+      })
+
+      let detail = {
+        form: form,
+        description: species.flavor_text_entries[1].flavor_text,
+        types: types,
+        abilities: abilities,
+        evolve: evolve,
+      }
+    })
   }
 
   render() {
@@ -64,7 +103,11 @@ class PokemonCard extends Component {
         <div className="flex justify-center flex-wrap lg:w-5/6 mx-auto p-10 py-0">
           {Store.dataAllPokemon ? 
             Store.dataAllPokemon.map((pokemon, index) => (
-              <div key={index} className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer">
+              <div
+                key={index}
+                className="flex-initial w-64 sm:w-48 focus:outline-none rounded-lg overflow-hidden shadow-lg bg-white hover:bg-gray-200 m-5 cursor-pointer"
+                onClick={() => this.loadDetailPokemon(pokemon)}
+              >
                 <div
                   className={css`
                     background-image: url(${pokemon.sprites.front_default});
@@ -143,7 +186,7 @@ class CardLoader extends Component {
 
 class Body extends Component {
   componentDidMount = () => {
-    Store.fetchAllPokemon('https://pokeapi.co/api/v2/pokemon?limit=12')
+    Store.fetchAllPokemon(`https://pokeapi.co/api/v2/pokemon?limit=12`)
   }
 
   fetchMorePokemon = () => {
