@@ -7,7 +7,27 @@ import { css } from "emotion"
 
 class PokemonCard extends Component {
   state = {
-    pokemonType: ['all', 'normal', 'fire', 'water', 'grass', 'flying', 'fighting', 'poison', 'electric', 'ground', 'rock', 'psychic', 'ice', 'bug', 'ghost', 'steel', 'dragon', 'dark', 'fairy'],
+    pokemonType: [
+      { name: 'all', color: 'EDf2f7' },
+      { name: 'normal', color: '#A8A878' },
+      { name: 'fire', color: '#F08030' },
+      { name: 'water', color: '#F08030' },
+      { name: 'grass', color: '#78C850' },
+      { name: 'flying', color: '#A890F0' },
+      { name: 'fighting', color: '#C03028' },
+      { name: 'poison', color: '#A040A0' },
+      { name: 'electric', color: '#F8D030' },
+      { name: 'ground', color: '#E0C068' },
+      { name: 'rock', color: '#B8A038' },
+      { name: 'psychic', color: '#F85888' },
+      { name: 'ice', color: '#98D8D8' },
+      { name: 'bug', color: '#A8B820' },
+      { name: 'ghost', color: '#705898' },
+      { name: 'steel', color: '#B8B8D0' },
+      { name: 'dragon', color: '#7038F8' },
+      { name: 'dark', color: '#705848' },
+      { name: 'fairy', color: '#EE99AC' },
+    ],
     tagCLick: 'all',
   }
 
@@ -33,10 +53,10 @@ class PokemonCard extends Component {
           {this.state.pokemonType.map((type, index) => (
             <div
               key={index}
-              className={`w-auto focus:outline-none ${this.state.tagCLick === type ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
+              className={`w-auto focus:outline-none ${this.state.tagCLick === type.name ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-red-600 hover:text-white rounded-full px-3 py-1 text-sm font-semibold m-1 cursor-pointer`}
               onClick={this.activatedTag}
             >
-              #{type}
+              #{type.name}
             </div>
           ))}
         </nav>
@@ -54,11 +74,21 @@ class PokemonCard extends Component {
                   }
                 />
                 <div className="px-4 py-0">
-                <div className="font-bold text-sm mb-2 text-center capitalize">{pokemon.name.replace('-', ' ')}</div>
+                <div className="font-bold text-sm mb-2 text-center capitalize">
+                  {pokemon.name.replace('-', ' ')}
+                </div>
                 </div>
                 <div className="px-4 py-3 pt-0 text-center">
                   {pokemon.types.map((type, index) => (
-                    <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 m-1">#{type.type.name}</span>
+                    <span
+                      key={index}
+                      className={css`
+                        background-color: ${this.state.pokemonType.find(e => e.name === type.type.name).color};`
+                        + " inline-block bg-fairy rounded-full px-3 py-1 text-xs font-semibold text-white m-1"
+                      }
+                    >
+                      #{type.type.name}
+                    </span>
                   ))}
                 </div>
               </div>
