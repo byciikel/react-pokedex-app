@@ -1,4 +1,5 @@
 {
+  "homepage": ".",
   "name": "react-pokedex-app",
   "version": "0.1.0",
   "private": true,
@@ -28,7 +29,9 @@
     "start": "yarn tailwind:css && craco start",
     "build": "yarn tailwind:css && craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "build:styles": "postcss src/assets/css/tailwind.css -o src/styles.css",
+    "prebuild": "NODE_ENV=production yarn build:styles",
+    "prestart": "yarn build:styles"
   },
   "eslintConfig": {
     "extends": "react-app"
